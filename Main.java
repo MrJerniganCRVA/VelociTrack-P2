@@ -120,7 +120,7 @@ public class Main {
         System.out.println(" 0. Exit");
     }
     private static void addFourSongsToPlaylist(){
-        Artist tlc = new Artist("TLC","Don't go chasing waterfall.");
+        Artist tlc = new Artist("TLC","Don't go chasing waterfalls.");
         Song song1 = new Song("i1", "Ain't 2 Proud 2 Beg", 337 ,"R&B", "09/23/2026", 1991, tlc, "Ooooooohhh... On the TLC Tip");
         Song song2 = new Song("i2","Waterfalls",228,"R&B","09/23/2026",1995, tlc, "CrazySexyCool");
         Song song3 = new Song("i3","No Scrubs",219,"R&B","09/23/2026",1999, tlc, "FanMail");
@@ -135,9 +135,8 @@ public class Main {
         while (!back) {
             System.out.println("\n--- " + myPlaylist.getName() + " ---");
             System.out.println("1. View playlist");
-            System.out.println("2. Add by title");
-            System.out.println("3. Remove by title");
-            System.out.println("4. Reorder");
+            System.out.println("2. Remove by title");
+            System.out.println("3. Reorder");
             System.out.println("0. Back");
             System.out.print("Enter a choice: ");
             String choice = input.nextLine().trim();
@@ -147,16 +146,10 @@ public class Main {
                     break;
                 case "2":
                     System.out.print("Title: ");
-                    Playable found = library.linearSearch(input.nextLine().trim());
-                    if (found == null) System.out.println("Not in library.");
-                    else { myPlaylist.addSong(found); System.out.println("Added."); }
-                    break;
-                case "3":
-                    System.out.print("Title: ");
                     boolean removed = myPlaylist.removeSong(input.nextLine().trim());
                     System.out.println(removed ? "Removed." : "Not in playlist.");
                     break;
-                case "4":
+                case "3":
                     System.out.println(myPlaylist);
                     int from;
                     int to;

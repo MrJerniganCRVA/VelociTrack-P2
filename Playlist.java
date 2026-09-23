@@ -107,21 +107,21 @@ public class Playlist implements Iterable<Playable> {
         }
     }
 
-    // ---------------------------------------------------------------
-    // toString -- note that it uses our OWN iterator via for-each.
-    // ---------------------------------------------------------------
+    // toString-note that it uses our OWN iterator via for-each. that is what "this" refers to...this current object is the one to loop through
     @Override
     public String toString() {
         if (isEmpty()) {
             return name + " (empty)";
         }
-        StringBuilder sb = new StringBuilder(name + " (" + size + " items)\n");
+
+        //Needed to use a StringBuilder due to concation making my head hurt
+        StringBuilder playlistString = new StringBuilder(name + " (" + size + " items)\n");
         int position = 1;
         for (Playable p : this) {
-            sb.append("  ").append(position++).append(". ")
+            playlistString.append("  ").append(position++).append(". ")
               .append(p.getTitle()).append(" - ").append(p.getCreator())
               .append("\n");
         }
-        return sb.toString();
+        return playlistString.toString();
     }
 }
