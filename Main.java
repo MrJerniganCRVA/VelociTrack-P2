@@ -58,6 +58,7 @@ public class Main {
                     library.linearSearch(searchTitle);
                     break;
                 case "4":
+                    //decided to use a submenu for this feature
                     playlistMenu(input);
                     break;
                 case "5":
@@ -137,7 +138,6 @@ public class Main {
             System.out.println("2. Add by title");
             System.out.println("3. Remove by title");
             System.out.println("4. Reorder");
-            System.out.println("5. Send playlist to Up Next");
             System.out.println("0. Back");
             System.out.print("Enter a choice: ");
             String choice = input.nextLine().trim();
@@ -171,10 +171,6 @@ public class Main {
                     }
                     myPlaylist.reorder(from, to);
                     System.out.println(myPlaylist);
-                    break;
-                case "5":
-                    player.addPlaylistToQueue(myPlaylist);
-                    System.out.println("Queued " + myPlaylist.getSize() + " items.");
                     break;
                 case "0":
                     back = true;
