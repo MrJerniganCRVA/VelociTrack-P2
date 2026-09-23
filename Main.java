@@ -17,6 +17,8 @@ public class Main {
     //If you want to add in your own sounds, you can make a private static Song with proper information
     private static List<RawMediaRecord> sampleData = null;
     private static MediaLibrary library = new MediaLibrary();
+    private static Playlist myPlaylist = new Playlist("My Cool Mix");
+    private static PlaybackManager player = new PlaybackManager();
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -55,8 +57,8 @@ public class Main {
                     library.linearSearch(searchTitle);
                     break;
                 case "4":
-                    // TODO (Project 2): print the contents of a Playlist
-                    comingSoon("Project 2", "build your Playlist class, then display it here.");
+                    addFourSongsToPlaylist();
+                    playlistMenu(input);
                     break;
                 case "5":
                     // TODO (Project 2): show Recently Played (stack) and Up Next (queue)
@@ -116,7 +118,60 @@ public class Main {
         System.out.println("12. Load Real Songs");
         System.out.println(" 0. Exit");
     }
+    private static void addFourSongsToPlaylist(){
+        Artist tlc = new Artist("TLC","Don't go chasing waterfall.");
+        Song song1 = new Song("i1", "Ain't 2 Proud 2 Beg", 337 ,"R&B", "09/23/2026", 1991, tlc, "Ooooooohhh... On the TLC Tip");
+        Song song2 = new Song("i2","Waterfalls",228,"R&B","09/23/2026",1995, tlc, "CrazySexyCool");
+        Song song3 = new Song("i3","No Scrubs",219,"R&B","09/23/2026",1999, tlc, "FanMail");
+        Song song4 = new Song("i4","Creep",268,"R&B","09/23/2026",1999, tlc, "CrazySexyCool");
+        myPlaylist.add(song1);
+        myPlaylist.add(song2);
+        myPlaylist.add(song3);
+        myPlaylist.add(song4);
+    }
+    private static void playlistMenu(Scanner input) {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n--- " + myPlaylist.getName() + " ---");
+            System.out.println("1. View playlist");
+            System.out.println("2. Add by title");
+            System.out.println("3. Remove by title");
+            System.out.println("4. Reorder");
+            System.out.println("5. Send playlist to Up Next");
+            System.out.println("0. Back");
+            String choice = input.nextLine().trim();
 
+            switch (choice) {
+                case "1" -> System.out.println(myPlaylist);
+                case "2" -> {
+                    System.out.print("Title: ");
+                    Playable found = library.linearSearch(in.nextLine());
+                    if (found == null) System.out.println("Not in library.");
+                    else { myPlaylist.addSong(found); System.out.println("Added."); }
+                }
+                case "3" -> {
+                    System.out.print("Title: ");
+                    boolean removed = myPlaylist.removeSong(in.nextLine());
+                    System.out.println(removed ? "Removed." : "Not in playlist.");
+                }
+                case "4" -> {
+                    System.out.println(myPlaylist);
+                    System.out.print("Move position #: ");
+                    int from = Integer.parseInt(input.nextLine()) - 1;   // menu shows 1-based
+                    System.out.print("To position #: ");
+                    int to = Integer.parseInt(input.nextLine()) - 1;
+                    myPlaylist.reorder(from, to);
+                    System.out.println(myPlaylist);
+                }
+                case "5" -> {
+                    player.addPlaylistToQueue(myPlaylist);
+                    System.out.println("Queued " + myPlaylist.getSize() + " items.");
+                }
+                case "0" -> back = true;
+                default  -> System.out.println("Invalid choice.");
+            }
+        }
+}
     private static void loadSampleData(Scanner input) {
         System.out.print("How many items would you like to generate? ");
         int count;
