@@ -22,7 +22,9 @@ public class PlaybackManager {
         upNext = new LinkedList<>();   // java.util.LinkedList used AS a Queue
     }
 
-    public Playable getNowPlaying() { return nowPlaying; }
+    public Playable getNowPlaying() { 
+        return nowPlaying; 
+    }
 
     // ---------------------------------------------------------------
     // addToQueue -- puts an item at the BACK of the Up Next line.

@@ -32,6 +32,15 @@ public class Playlist implements Iterable<Playable> {
     public void addSong(Playable item) {
         PlaylistNode newNode = new PlaylistNode(item);
         //TODO: read above
+        if(isEmpty()){
+            this.head = newNode;
+            this.tail = newNode;
+        } else{
+            this.tail.setNext(newNode);
+            newNode.setPrev(this.tail);
+            this.tail = newNode;
+        }
+        this.size++;
     }
 
     // ---------------------------------------------------------------
@@ -52,7 +61,28 @@ public class Playlist implements Iterable<Playable> {
     //   Draw it on paper first. Every broken linked list is a missing arrow.
     // ---------------------------------------------------------------
     public boolean removeSong(String title) {
-        // TODO
+        PlaylistNode current = head;
+        while(current != null){
+            if(current.getItem().getTitle().equalsIgnoreCase(title.trim())){
+                PlaylistNode before = current.getPrev();
+                PlaylistNode after = current.getNext();
+                if(before == null){
+                    head = after;
+                } else{
+                    before.setNext(after);
+                }
+                if(after==null){
+                    tail = before;
+                } else{
+                    after.setPrev(before);
+                }
+                current.setPrev(null);
+                current.setNext(null);
+                size--;
+                return true;
+            }
+            current = current.getNext();
+        }
         return false;
     }
 
@@ -60,7 +90,7 @@ public class Playlist implements Iterable<Playable> {
     // reorder -- moves the item at fromIndex so it ends up at toIndex.
     //   Example: [A, B, C, D], reorder(0, 2) -> [B, C, A, D]
     //
-    // TODO (students):
+    // TODO (students)
     //   1. Validate both indexes (0 to size-1). Bad index? Throw
     //      IndexOutOfBoundsException, or just return. Decide and be consistent.
     //   2. If fromIndex == toIndex, there's nothing to do.
