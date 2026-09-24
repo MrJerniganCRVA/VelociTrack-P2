@@ -31,7 +31,7 @@ public class PlaybackManager {
     // TODO: one line. Which Queue method adds to the back?
     // ---------------------------------------------------------------
     public void addToQueue(Playable item) {
-        // TODO
+        upNext.offer(item);
     }
 
     // ---------------------------------------------------------------
@@ -39,7 +39,9 @@ public class PlaybackManager {
     // TODO: your Playlist is Iterable, so a for-each loop works here.
     // ---------------------------------------------------------------
     public void addPlaylistToQueue(Playlist playlist) {
-        // TODO
+        for(Playable p : playlist){
+            upNext.offer(p);
+        }
     }
 
     // ---------------------------------------------------------------
@@ -53,8 +55,16 @@ public class PlaybackManager {
     //   Hint: look up the difference between poll() and remove().
     // ---------------------------------------------------------------
     public Playable playNext() {
-        // TODO
-        return null;
+        if(upNext.isEmpty()){
+            System.out.println("Up next is empty. Have you tried adding a song?");
+            return null;
+        }
+        if (nowPlaying != null){
+            recentlyPlayed.push(nowPlaying);
+        }
+        nowPlaying = upNext.poll();
+        nowPlaying.play();
+        return nowPlaying;
     }
 
     // ---------------------------------------------------------------
@@ -67,8 +77,13 @@ public class PlaybackManager {
     //   (There's more than one reasonable answer. Pick one and comment why.)
     // ---------------------------------------------------------------
     public Playable goBack() {
-        // TODO
-        return null;
+        if(recentlyPlayed.isEmpty()){
+            System.out.println("Nothing to go back to yet. Try listening to at least one thing, please");
+            return null;
+        }
+        nowPlaying = recentlyPlayed.pop();
+        nowPlaying.play();
+        return nowPlaying;
     }
 
     // ---------------------------------------------------------------
