@@ -63,7 +63,7 @@ public class Main {
                     break;
                 case "5":
                     // TODO (Project 2): show Recently Played (stack) and Up Next (queue)
-                    comingSoon("Project 2", "wire up your Recently Played stack and Up Next queue here.");
+                    playbackMenu(input);
                     break;
                 case "6":
                     // TODO (Project 3): call your HashMap-based fast search
@@ -129,6 +129,35 @@ public class Main {
         myPlaylist.addSong(song2);
         myPlaylist.addSong(song3);
         myPlaylist.addSong(song4);
+    }
+    private static void playbackMenu(Scanner input){
+        System.out.println("\n------Playback-------");
+        Playable current = player.getNowPlaying();
+        boolean back = false;
+        while(!back){
+            if(current == null){
+                System.out.println("Now Playing: (nothing)");
+            } else {
+                System.out.printf("Now Playing: (%s)%n",current.getName());
+            }
+            System.out.println("1. Play Next");
+            System.out.println("2. Go Back");
+            System.out.println("3. Show Up Next");
+            System.out.println("4. Show Recently Played");
+            System.out.println("5. Add playlist to Queue");
+            System.out.println("0. Back");
+            System.out.print("Enter a choice: ");
+            String choice - input.nextLine().trim();
+            switch(choice){
+                case "1" -> player.playNext();
+                case "2" -> player.goBack();
+                case "3" -> player.showUpNext();
+                case "4"-> player.showRecentlyPlayed();
+                case "5" -> player.addPlaylistToQueue(myPlaylist);
+                case "0" -> back = true;
+                default -> System.out.println("Invalid Choice");
+            }
+        }
     }
     private static void playlistMenu(Scanner input) {
         boolean back = false;
