@@ -138,7 +138,7 @@ public class Main {
             if(current == null){
                 System.out.println("Now Playing: (nothing)");
             } else {
-                System.out.printf("Now Playing: (%s)%n",current.getName());
+                System.out.printf("Now Playing: (%s)%n",current.getTitle());
             }
             System.out.println("1. Play Next");
             System.out.println("2. Go Back");
