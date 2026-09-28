@@ -147,7 +147,7 @@ public class Main {
             System.out.println("5. Add playlist to Queue");
             System.out.println("0. Back");
             System.out.print("Enter a choice: ");
-            String choice - input.nextLine().trim();
+            String choice = input.nextLine().trim();
             switch(choice){
                 case "1" -> player.playNext();
                 case "2" -> player.goBack();
